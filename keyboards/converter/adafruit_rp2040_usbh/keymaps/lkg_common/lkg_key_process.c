@@ -152,6 +152,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAKE_KEYMAP:
                 SEND_STRING("make converter/adafruit_rp2040_usbh:my_keymap" SS_TAP(X_ENTER));
                 return false;
+        case GIT_PUSH:
+                SEND_STRING("git add . && git commit -m \"Updated keymap\" && git push origin main" SS_TAP(X_ENTER));
+                return false;
         case WORD1:
                 SEND_STRING("MiAng*38");
                 return false;
