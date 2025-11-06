@@ -27,6 +27,8 @@ enum tap_dance_codes {
 
 void td_capslock_finished(tap_dance_state_t *state, void *user_data);
 void td_capslock_reset(tap_dance_state_t *state, void *user_data);
+void td_lctrl_finished(tap_dance_state_t *state, void *user_data);
+void td_lctrl_reset(tap_dance_state_t *state, void *user_data);
 void td_numlock_finished(tap_dance_state_t *state, void *user_data);
 void td_numlock_reset(tap_dance_state_t *state, void *user_data);
 void td_shift_brackets_finished(tap_dance_state_t *state, void *user_data);
