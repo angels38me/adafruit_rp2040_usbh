@@ -163,6 +163,48 @@ void td_capslock_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void td_lctrl_finished(tap_dance_state_t *state, void *user_data) {
+    
+    // 1 tap hold = Left Control
+    if (state->count == 1 && state->pressed) {
+        td_caps_hold_ctrl = true;
+        register_code(KC_LCTL);  // ✅ 1 tap hold = Left Control
+    }
+    
+    // 2 taps hold = Momentary Layer 1 activation
+    else if (state->count == 2 && state->pressed) {
+        td_caps_hold_layer = true;
+        layer_on(1);  // ✅ 3 taps hold = Momentary Layer 1
+    }
+    
+    // 3 taps hold = F24 modifier (wraps next key)
+    else if (state->count == 3 && state->pressed) {
+        td_caps_hold_f24 = true;
+        register_code(KC_F24);  // ✅ 2 taps hold = F24 modifier
+    }
+    
+
+}
+
+void td_lctrl_reset(tap_dance_state_t *state, void *user_data) {
+    // Clean up any held modifiers/layers
+    if (td_caps_hold_ctrl) {
+        unregister_code(KC_LCTL);
+        td_caps_hold_ctrl = false;
+    }
+
+    if (td_caps_hold_layer) {
+        layer_off(1);
+        td_caps_hold_layer = false;
+    }    
+    
+    if (td_caps_hold_f24) {
+        unregister_code(KC_F24);
+        td_caps_hold_f24 = false;
+    }
+}
+
+
 void td_numlock_finished(tap_dance_state_t *state, void *user_data) {
    // switch (state->count) {
     #ifdef CONSOLE_ENABLE
