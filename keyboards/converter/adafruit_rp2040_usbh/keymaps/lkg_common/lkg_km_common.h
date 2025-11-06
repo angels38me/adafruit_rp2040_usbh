@@ -77,6 +77,6 @@ enum custom_keycodes {
     MAKE_KEYMAP,
     WORD1,
     WORD2,
-    GIT_PUSH,
+    MAKE_CODER,
 
 };
