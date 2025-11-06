@@ -212,12 +212,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-// Override the keyboard post init to set initial LED state
 void keyboard_post_init_user(void) {
-    // Clear all LEDs on startup
-    // Force Num Lock ON, Caps Lock OFF, Scroll Lock OFF
-    force_led_state(true, false, false);
     autoshift_disable();
+}
+
+void housekeeping_task_user(void) {
+    static bool num_lock_initialized = false;
+    
+    if (!num_lock_initialized) {
+        led_t led_state = host_keyboard_led_state();
+        if (!led_state.num_lock) {
+            register_code(KC_NUM);
+            unregister_code(KC_NUM);
+        } else {
+            num_lock_initialized = true;
+        }
+    }
 }
 
 // Helper function to set LED states forcefully
