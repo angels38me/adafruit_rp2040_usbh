@@ -34,6 +34,7 @@ enum {
 #define TD_NUM TD(TD_NUM_MEDIA)
 #define TD_CAPS TD(TD_CAPS_CTRL)
 #define TD_LAY TD(TD_LAYER_1_2)
+#define TD_CLAY TD(TD_CTRL_LAY)
 #define PWR_SPC LT(1, KC_SPC)
 #define PWRF_L1 LT(1, KC_F)
 #define PWRJ_L1 LT(1, KC_J)
