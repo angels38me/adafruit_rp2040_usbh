@@ -91,6 +91,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 tap_dance_action_t tap_dance_actions[] = {
     [TD_NUM_MEDIA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_numlock_finished, td_numlock_reset),
     [TD_CAPS_CTRL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_capslock_finished, td_capslock_reset),
+    [TD_CTRL_LAY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lctrl_finished, td_lctrl_reset),
     [TD_POWER_MODS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_power_mods_finished, dance_power_mods_reset),
     [TD_POWER_MODS_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_power_mods_r_finished, dance_power_mods_r_reset),
     [TD_LAYER_1_2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer_12_finished, td_layer_12_reset),
