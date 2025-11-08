@@ -24,6 +24,7 @@ enum layers {
 enum {
     TD_NUM_MEDIA,
     TD_CAPS_CTRL,
+    TD_CTRL_LAY,
     TD_POWER_MODS,
     TD_POWER_MODS_R,
     TD_SHIFT_BRACKETS,
