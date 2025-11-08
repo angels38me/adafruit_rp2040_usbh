@@ -121,11 +121,17 @@ void dance_3_reset(tap_dance_state_t *state, void *user_data) {
 static bool td_caps_hold_ctrl = false;
 static bool td_caps_hold_f24 = false;
 static bool td_caps_hold_layer = false;
+static bool td_caps_hold_caps = false;
 
 void td_capslock_finished(tap_dance_state_t *state, void *user_data) {
-    // 4 taps = Caps Lock toggle
-    if (state->count == 4 && !state->pressed) {
-        tap_code(KC_CAPS);  // ✅ 4 taps = Caps Lock
+    // 4 taps = Caps Lock (toggle on tap, hold as modifier)
+    if (state->count == 4) {
+        if (state->pressed) {
+            td_caps_hold_caps = true;
+            register_code(KC_CAPS);  // ✅ 4 taps hold = Hold Caps Lock
+        } else {
+            tap_code(KC_CAPS);  // ✅ 4 taps = Caps Lock toggle
+        }
     }
     
     // 1 tap hold = Left Control
@@ -160,6 +166,10 @@ void td_capslock_reset(tap_dance_state_t *state, void *user_data) {
     if (td_caps_hold_layer) {
         layer_off(1);
         td_caps_hold_layer = false;
+    }
+    if (td_caps_hold_caps) {
+        unregister_code(KC_CAPS);
+        td_caps_hold_caps = false;
     }
 }
 
