@@ -31,26 +31,19 @@ enum {
     TD_LAYER_1_2,
 };
 
-#define TD_NUM TD(TD_NUM_MEDIA)
-#define TD_CAPS TD(TD_CAPS_CTRL)
-#define TD_LAY TD(TD_LAYER_1_2)
-#define TD_CLAY TD(TD_CTRL_LAY)
-#define PWR_SPC LT(1, KC_SPC)
-#define PWRF_L1 LT(1, KC_F)
-#define PWRJ_L1 LT(1, KC_J)
 
 // Custom keycodes - use MY_MACRO_X to avoid QMK conflicts
 enum custom_keycodes {
-    MY_MACRO_0 = SAFE_RANGE,  // ñ/Ñ macro
-    MY_MACRO_1,               // Delete next word (Ctrl+Del)
-    MY_MACRO_2,               // Delete prev word (Ctrl+Backspace)
-    MY_MACRO_3,               // Copy (Ctrl+C)
-    MY_MACRO_4,               // Paste (Ctrl+V)
-    MY_MACRO_5,               // Select all (Ctrl+A)
-    MY_MACRO_6,               // Undo (Ctrl+Z)
-    MY_MACRO_7,               // Redo (Ctrl+Y)
-    MY_MACRO_8,               // Emacs: Ctrl+X Ctrl+W
-    MY_MACRO_9,               // Emacs: Ctrl+X {
+  MY_MACRO_0 = SAFE_RANGE,  // ñ/Ñ macro
+  MY_MACRO_1,               // Delete next word (Ctrl+Del)
+  MY_MACRO_2,               // Delete prev word (Ctrl+Backspace)
+  MY_MACRO_3,               // Copy (Ctrl+C)
+  MY_MACRO_4,               // Paste (Ctrl+V)
+  MY_MACRO_5,               // Select all (Ctrl+A)
+  MY_MACRO_6,               // Undo (Ctrl+Z)
+  MY_MACRO_7,               // Redo (Ctrl+Y)
+  MY_MACRO_8,               // Emacs: Ctrl+X Ctrl+W
+  MY_MACRO_9,               // Emacs: Ctrl+X {
     MY_MACRO_10,              // Emacs: Ctrl+X }
     MY_MACRO_11,              // Emacs: Ctrl+X 4 B
     MY_MACRO_12,              // Emacs: Ctrl+X 4 D
@@ -80,5 +73,25 @@ enum custom_keycodes {
     WORD1,
     WORD2,
     MAKE_CODER,
+    HIGH_CONTRAST,
+    DUP_LINE,
+    DEL_LINE,
+    NEW_DESK,
+    DESK_LEFT,
+    DESK_RIGHT,
+    CLOSE_DESK,
+    
+  };
 
-};
+  #define TD_NUM TD(TD_NUM_MEDIA)
+  #define TD_CAPS TD(TD_CAPS_CTRL)
+  #define TD_LAY TD(TD_LAYER_1_2) 
+  #define TD_CLAY TD(TD_CTRL_LAY)
+  #define PWR_SPC LT(1, KC_SPC)
+  #define PWRF_L1 LT(1, KC_F)
+  #define PWRJ_L1 LT(1, KC_J)
+
+  #define DK_NEW NEW_DESK
+  #define DK_LFT DESK_LEFT
+  #define DK_RHT DESK_RIGHT
+  #define DK_CLS CLOSE_DESK
