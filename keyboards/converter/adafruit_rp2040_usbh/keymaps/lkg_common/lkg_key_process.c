@@ -6,16 +6,17 @@
 
 #endif
 
-//static bool actual_caps_lock = false;
-//static bool actual_scroll_lock = false;
-//static bool actual_num_lock = true;
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     if (!process_caps_word(keycode, record)) {
         return false;
     }
+
+
+   // #ifdef CONSOLE_ENABLE
+   // uprintf("keycode: %u, pressed: %d\n", keycode, record->event.pressed);
+   // #endif
 
         // ADD THIS BLOCK: Neutralize Caps Lock effect on layers 1 and 2
     if (!IS_LAYER_ON(0) && host_keyboard_led_state().caps_lock) {
@@ -66,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
         
-         case SEL_LINE:
+        case SEL_LINE:
             if (record->event.pressed) {
 
                 tap_code(KC_HOME);
@@ -77,6 +78,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LSFT);
             }
             return false; // Skip further processing
+
+        case DUP_LINE:
+            if (record->event.pressed) {
+                // Select the entire line
+                tap_code(KC_HOME);
+                tap_code16(S(KC_END));  // Shift+End
+                // Copy
+                tap_code16(LCTL(KC_C));
+                // Move to end of line, new line, paste
+                tap_code(KC_END);
+                tap_code(KC_ENT);
+                tap_code16(LCTL(KC_V));
+            }
+            return false;
+        
+        case DEL_LINE:
+            if (record->event.pressed) {
+                tap_code(KC_HOME);
+                tap_code16(S(KC_END));  // Select to end
+                tap_code(KC_DEL);       // Delete selection
+            }
+            return false;
+
+        case DESK_LEFT:
+            if (record->event.pressed) {
+                tap_code16(LGUI(LCTL(KC_LEFT)));
+            }
+            return false;
+
+        case DESK_RIGHT:
+            if (record->event.pressed) {
+                tap_code16(LGUI(LCTL(KC_RGHT)));
+            }
+            return false;
+
+        case NEW_DESK:
+            if (record->event.pressed) {
+                tap_code16(LGUI(LCTL(KC_D)));   // Win+Ctrl+D
+            }
+            return false;
+
+        case CLOSE_DESK:
+            if (record->event.pressed) {
+                tap_code16(LGUI(LCTL(KC_F4)));
+            }
+            return false;
 
         case MY_MACRO_0:
             if (record->event.pressed) {
@@ -161,6 +208,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WORD2:
                 SEND_STRING("ang422Juarez");
                 return false;
+        case HIGH_CONTRAST:
+                if (record->event.pressed) {
+                    register_code(KC_LALT);
+                    register_code(KC_LSFT);
+                    tap_code(KC_PSCR);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_LALT);
+                }
+                return false;
         
     }
 
@@ -200,6 +256,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SC_LSPO:
+        case SC_RSPC:
         case PWRF_L1:
         case PWRJ_L1:
             return 75;  // Shorter timeout for Space Cadet
@@ -301,22 +359,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     }
     return state;
-}
-
-bool led_update_user(led_t led_state) {
-    // Send LED state back to the connected keyboard
-    if (led_state.num_lock) {
-        // Num Lock is on
-    }
-    if (led_state.caps_lock) {
-        // Caps Lock is on
-    }
-    if (led_state.scroll_lock) {
-        // Scroll Lock is on
-    }
-    
-    // Forward LED state to connected keyboard
-    // This requires USB host shield support
-    
-    return true; // Return true to continue default LED handling
 }
