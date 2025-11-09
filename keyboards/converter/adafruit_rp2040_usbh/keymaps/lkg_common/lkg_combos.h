@@ -20,6 +20,7 @@ enum combos {
   NMNS_PSLS,
   NMNS_PAST,
   BOOT_Combo,              // This gives us the count
+  LBRC_RBRC_OSM_CAPS,        // [ + ] = One-shot Caps Lock
   COMBO_LENGTH,              // This gives us the count
 };
 
@@ -43,6 +44,7 @@ const uint16_t PROGMEM combo_15[]  = {KC_P,     KC_K,         COMBO_END};
 const uint16_t PROGMEM combo_16[] = {KC_PMNS, KC_PSLS, COMBO_END};  
 const uint16_t PROGMEM combo_17[] = {KC_PMNS, KC_PAST, COMBO_END}; 
 const uint16_t PROGMEM combo_18[] = {KC_PMNS, KC_PPLS, COMBO_END};  
+const uint16_t PROGMEM combo_19[] = {KC_LBRC, KC_RBRC, COMBO_END};
 
 
 
@@ -66,6 +68,7 @@ combo_t key_combos[] = {
   [NMNS_PSLS]   = COMBO(combo_16, KC_MPRV),  // Previous track
   [NMNS_PAST]   = COMBO(combo_17, KC_MNXT),  // Next track
   [BOOT_Combo]   = COMBO(combo_18, TO(7)),  // Next track
+  [LBRC_RBRC_OSM_CAPS]   = COMBO(combo_19, KC_CAPS),  // One-shot Caps Lock
 
 };
 
