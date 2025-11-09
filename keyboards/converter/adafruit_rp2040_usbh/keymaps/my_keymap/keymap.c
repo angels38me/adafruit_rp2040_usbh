@@ -18,12 +18,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LAYER_1] = LAYOUT_fullsize_ansi(
-        TO(0),            KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,     KC_NO,   SEL_LINE, QK_LEADER,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_MAIL, KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_ACL1, KC_ACL0,
-        KC_NO,   KC_NO,   S(KC_TAB), KC_UP, KC_TAB,  KC_HOME, KC_NO,   KC_7,    KC_8,    KC_9,    KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,      KC_MS_WH_UP, KC_MS_UP, KC_NO, KC_ACL1,
-        KC_LCTL, KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_NO,   KC_4,    KC_5,    KC_6,    KC_NO,   KC_NO,            KC_NO,                                    KC_MS_LEFT, KC_MS_BTN1, KC_MS_RIGHT,
-        KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_1,    KC_2,    KC_3,    KC_NO,            KC_NO,               KC_MYCM,             KC_MS_WH_DOWN, KC_MS_DOWN, KC_MS_BTN2, KC_NO,
-        KC_NO,   KC_NO,   SEL_LINE,                           KC_0,                               KC_0,    KC_DOT,  KC_NO,   KC_NO,      KC_WBAK, KC_WHOM, KC_WFWD,    KC_NO,            KC_NO
+        TO(0),            KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,     DUP_LINE,  SEL_LINE, QK_LEADER,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   DK_CLS,  DK_NEW,  KC_NO,      KC_NO,     DEL_LINE, KC_NO,      KC_CALC,           KC_NO,      KC_ACL1,     KC_ACL0,
+        KC_NO,   KC_NO,   S(KC_TAB), KC_UP, KC_TAB,  KC_HOME, KC_NO,   KC_7,    KC_8,    KC_9,    KC_NO,   DK_LFT,  DK_RHT,  KC_NO,      KC_NO,     KC_NO,    KC_NO,      KC_MS_WH_UP,     KC_MS_UP,   KC_NO,       KC_ACL1,
+        KC_LCTL, KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_NO,   KC_4,    KC_5,    KC_6,    KC_NO,   KC_NO,            KC_NO,                                       KC_MS_LEFT,      KC_MS_BTN1, KC_MS_RIGHT,
+        KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_1,    KC_2,    KC_3,    KC_NO,            KC_NO,                 KC_MYCM,              KC_MS_WH_DOWN,   KC_MS_DOWN, KC_MS_BTN2,  KC_NO,
+        KC_NO,   KC_NO,   SEL_LINE,                           KC_0,                               KC_0,    KC_DOT,  KC_NO,   KC_MAIL,    KC_WBAK,   KC_WHOM,  KC_WFWD,    KC_NO,           KC_NO
     ),
 
     [LAYER_2] = LAYOUT_fullsize_ansi(
@@ -72,12 +72,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LAYER_7] = LAYOUT_fullsize_ansi(
-        TO(0),            CD_FIRMWARE, MAKE_KEYMAP, MAKE_CODER, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_LEADER,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,                                  KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,             KC_TRNS,             WORD1,   WORD2,   KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          QK_BOOT
+        TO(0),            CD_FIRMWARE,  MAKE_KEYMAP, MAKE_CODER, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    HIGH_CONTRAST, KC_TRNS, QK_LEADER,
+        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,                                  KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS,          KC_TRNS,      KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,             KC_TRNS,             WORD1,   WORD2,   KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS,                                        KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          QK_BOOT
     )
 };
 
