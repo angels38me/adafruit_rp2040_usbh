@@ -3,7 +3,10 @@
 
 #ifdef LEADER_ENABLE
 #include "process_leader.h"
+#endif
 
+#ifdef RAW_ENABLE
+#include "raw_hid.h"
 #endif
 
 
@@ -14,55 +17,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
 
-   // #ifdef CONSOLE_ENABLE
-   // uprintf("keycode: %u, pressed: %d\n", keycode, record->event.pressed);
-   // #endif
-
-        // ADD THIS BLOCK: Neutralize Caps Lock effect on layers 1 and 2
-    if (!IS_LAYER_ON(0) && host_keyboard_led_state().caps_lock) {
-        // We're not on layer 0 and Caps Lock is on
-        // Check if this is an alphabetic key
-        if (keycode >= KC_A && keycode <= KC_Z) {
-            if (record->event.pressed) {
-                // Caps Lock inverts the shift state, so we need to counter it
-                // by adding shift (which will cancel out the Caps Lock effect)
-                add_mods(MOD_BIT(KC_LSFT));
-                register_code(keycode);
-                del_mods(MOD_BIT(KC_LSFT));
-            } else {
-                unregister_code(keycode);
-            }
-            return false;  // We handled this key
-        }
-    }
-
-    // ADD THIS BLOCK: Neutralize Num Lock effect on layers 1 and 2  
-    if (!IS_LAYER_ON(0) && !host_keyboard_led_state().num_lock) {
-        // We're not on layer 0 and Num Lock is off
-        // Numpad keys would normally send navigation, but we want numbers
-        switch(keycode) {
-            case KC_P0:
-            case KC_P1:
-            case KC_P2:
-            case KC_P3:
-            case KC_P4:
-            case KC_P5:
-            case KC_P6:
-            case KC_P7:
-            case KC_P8:
-            case KC_P9:
-            case KC_PDOT:
-                if (record->event.pressed) {
-                    // Temporarily turn on Num Lock for this key
-                    tap_code(KC_NUM);  // Turn on Num Lock
-                    register_code(keycode);
-                    tap_code(KC_NUM);  // Turn it back off
-                } else {
-                    unregister_code(keycode);
-                }
-                return false;
-        }
-    }
+  // #ifdef CONSOLE_ENABLE
+  // uprintf("keycode: %u, pressed: %d\n", keycode, record->event.pressed);
+  // #endif
 
     if (record->event.pressed) {
         switch (keycode) {
@@ -274,89 +231,24 @@ void keyboard_post_init_user(void) {
     autoshift_disable();
 }
 
-void housekeeping_task_user(void) {
-    static bool num_lock_initialized = false;
-    
-    if (!num_lock_initialized) {
-        led_t led_state = host_keyboard_led_state();
-        if (!led_state.num_lock) {
-            register_code(KC_NUM);
-            unregister_code(KC_NUM);
-        } else {
-            num_lock_initialized = true;
-        }
-    }
-}
-
-// Helper function to set LED states forcefully
-void force_led_state(bool num, bool caps, bool scroll) {
-    led_t current = host_keyboard_led_state();
-    
-    // Toggle Num Lock if needed
-    if (current.num_lock != num) {
-        register_code(KC_NUM);
-        unregister_code(KC_NUM);
-    }
-    
-    // Toggle Caps Lock if needed
-    if (current.caps_lock != caps) {
-        register_code(KC_CAPS);
-        unregister_code(KC_CAPS);
-    }
-    
-    // Toggle Scroll Lock if needed
-    if (current.scroll_lock != scroll) {
-        register_code(KC_SCRL);
-        unregister_code(KC_SCRL);
-    }
-}
-
+// Layer state function that ONLY sends console messages - no keycodes
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
     
-    switch (layer) {
-        case 0:
-            // Layer 0: Restore actual states (or all off if you prefer)
-            //force_led_state(actual_caps_lock, actual_scroll_lock, false);
-            // Or to force all LEDs off on layer 0:
-            force_led_state(true, false, false);
-            break;
-        
-        case 1:
-            // Layer 1: Caps + Num
-            force_led_state(true, true, false);
-            break;
-
-        case 2:
-            // Layer 2: Num + Scroll
-            force_led_state(true, false, true);
-            break;
-
-        case 3: 
-            // Layer 3: Caps + Num + Scroll
-            force_led_state(true, true, true);
-            break;
-
-        case 4:
-            // Layer 4: Only Caps LED on
-            force_led_state(false, true, false);
-            break;
-        
-        case 5:
-            // Layer 5: Only Scroll Lock LED and Caps Lock
-            force_led_state(false, true, true);
-            break;
-        
-        case 6:
-            // Layer 6: Only Scroll Lock LED on
-            force_led_state(false, false, true);
-            break;
-
-        case 7:
-            // Layer 7: Only Scroll Lock LED and Caps Lock
-            force_led_state(false, false, false);
-            break;
-
-    }
+    // Send ONLY console message for visual indicator to monitor
+    #ifdef CONSOLE_ENABLE
+    uprintf("LAYER:%d\n", layer);
+    #endif
+    
     return state;
+}
+
+
+void suspend_power_down_user(void) {
+    // Called when going to sleep
+}
+
+void suspend_wakeup_init_user(void) {
+    // Force USB host reinitialization
+    // This might help restart the host converter
 }
