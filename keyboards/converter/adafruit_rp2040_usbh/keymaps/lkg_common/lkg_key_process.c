@@ -16,10 +16,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+   // #ifdef CONSOLE_ENABLE
+   // uprintf("keycode: %u, pressed: %d\n", keycode, record->event.pressed);
+   // #endif
 
-  // #ifdef CONSOLE_ENABLE
-  // uprintf("keycode: %u, pressed: %d\n", keycode, record->event.pressed);
-  // #endif
+   // AutoShift status will be handled by custom toggle function
+   #ifdef AUTO_SHIFT_ENABLE
+   // Moved to custom autoshift_toggle_custom() function
+   #endif
 
     if (record->event.pressed) {
         switch (keycode) {
@@ -231,6 +235,21 @@ void keyboard_post_init_user(void) {
     autoshift_disable();
 }
 
+#ifdef AUTO_SHIFT_ENABLE
+// Custom AutoShift toggle function that sends console messages
+void autoshift_toggle_custom(void) {
+    autoshift_toggle();  // Call the original QMK function
+    
+    #ifdef CONSOLE_ENABLE
+    if (get_autoshift_state()) {
+        uprintf("AUTOSHIFT:ON\n");
+    } else {
+        uprintf("AUTOSHIFT:OFF\n");
+    }
+    #endif
+}
+#endif
+
 // Layer state function that ONLY sends console messages - no keycodes
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
@@ -242,7 +261,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     
     return state;
 }
-
 
 void suspend_power_down_user(void) {
     // Called when going to sleep
