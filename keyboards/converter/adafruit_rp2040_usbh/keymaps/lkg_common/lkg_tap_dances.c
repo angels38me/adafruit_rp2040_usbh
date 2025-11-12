@@ -2,6 +2,10 @@
 
 #include "lkg_tap_dances.h"
 
+#ifdef AUTO_SHIFT_ENABLE
+void autoshift_toggle_custom(void);
+#endif
+
 extern bool actual_num_lock;
 
 static tap dance_state[4];
@@ -235,8 +239,7 @@ void td_numlock_finished(tap_dance_state_t *state, void *user_data) {
             tap_code(KC_NUM);  // Use KC_NUM to match your process_record_user
             break;
         case 4:
-            autoshift_toggle();
-            tap_code(KC_NUM);
+            autoshift_toggle_custom();
             break;
     }
 }
